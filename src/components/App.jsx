@@ -24,6 +24,18 @@ class App extends React.Component {
   }
 
   updateTicketElapsedWaitTime() {
+    const { dispatch } = this.props;
+    Object.keys(this.props.masterTicketList).map(ticketId => {
+      const ticket = this.props.masterTicketList[ticketId];
+      const newFormattedWaitTime = ticket.timeOpen.fromNow(true);
+      const action = {
+        type: 'UPDATE_TIME',
+        id: ticketId,
+        formattedWaitTime: newFormattedWaitTime
+      };
+      dispatch(action);
+    });
+  }
     let newMasterTicketList = Object.assign({}, this.props.masterTicketList);
     console.log(this.props);
     Object.keys(newMasterTicketList).forEach(ticketId => {
